@@ -1,7 +1,27 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Hello, @UserName!</h1>
+<p>Welcome to your new app.</p>
 
-Welcome to your new app.
+@code {
+    private string UserName { get; set; } = "Guest";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            //★(a)
+            var givenName = user.FindFirst(ClaimTypes.GivenName)?.Value ?? string.Empty;
+            var surname = user.FindFirst(ClaimTypes.Surname)?.Value ?? string.Empty;
+            UserName = $"{givenName} {surname}".Trim();
+        }
+    }
+}
