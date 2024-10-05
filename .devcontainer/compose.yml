@@ -1,0 +1,36 @@
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces:cached
+    command: sleep infinity
+    networks:
+      - devnetwork
+    init : true
+
+
+#   db:
+#     build:
+#       context: ./db
+#       dockerfile: Dockerfile
+#     restart: unless-stopped
+#     volumes:
+#       - mssql-data:/var/opt/mssql
+#     env_file: .env
+#     environment:
+#       ACCEPT_EULA: Y
+#       SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+#       MSSQL_PID: Developer
+#     ports:
+#       - "1433:1433"
+#     networks:
+#       - devnetwork
+#     init: true
+
+# volumes:
+#   mssql-data:
+
+networks:
+  devnetwork:

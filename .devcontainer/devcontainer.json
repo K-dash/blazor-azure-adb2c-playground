@@ -1,0 +1,41 @@
+{
+    "name": "C# (.NET) with PostgreSQL",
+    "dockerComposeFile": "./compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit",
+                "ms-dotnettools.vscodeintellicode-csharp",
+                "adrianwilczynski.blazor-snippet-pack",
+                "oderwat.indent-rainbow",
+                "esbenp.prettier-vscode",
+                "VisualStudioExptTeam.vscodeintellicode",
+                "christian-kohler.path-intellisense",
+                "formulahendry.auto-rename-tag",
+                "shardulm94.trailing-spaces",
+                "eamodio.gitlens",
+                "ecmel.vscode-html-css",
+                "Zignd.html-css-class-completion",
+                "jmrog.vscode-nuget-package-manager",
+                "ms-mssql.mssql",
+                "Codeium.codeium",
+                "saoudrizwan.claude-dev"
+            ]
+        }
+    },
+
+    "features": {
+        "docker-from-docker": {
+            "version": "latest"
+        }
+    },
+
+    "forwardPorts": [5000, 5001, 1443],
+
+    "postCreateCommand": "dotnet restore"
+}
