@@ -1,6 +1,5 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization
-@using System.Security.Claims
+@inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Home</PageTitle>
@@ -9,7 +8,8 @@
 <p>Welcome to your new app.</p>
 
 @code {
-    private string UserName { get; set; } = "Guest";
+    private bool isAuthenticated = false;
+    private string UserName { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,10 +18,14 @@
 
         if (user.Identity?.IsAuthenticated == true)
         {
-            //★(a)
+            isAuthenticated = true;
             var givenName = user.FindFirst(ClaimTypes.GivenName)?.Value ?? string.Empty;
             var surname = user.FindFirst(ClaimTypes.Surname)?.Value ?? string.Empty;
             UserName = $"{givenName} {surname}".Trim();
+        }
+        else
+        {
+            Navigation.NavigateTo("MicrosoftIdentity/Account/SignIn", forceLoad: true);
         }
     }
 }
