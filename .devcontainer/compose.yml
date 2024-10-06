@@ -5,12 +5,15 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspaces:cached
+      - projectname-bashhistory:/commandhistory
     command: sleep infinity
     env_file: .env
     networks:
       - devnetwork
     init : true
 
+volumes:
+  projectname-bashhistory:
 
 #   db:
 #     build:
